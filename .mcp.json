@@ -36,19 +36,20 @@
       "args": ["-y", "mcp-remote", "https://mcp.canva.com/mcp"]
     },
     "google-analytics": {
-      "$comment": "Community server (ruchernchong/mcp-server-google-analytics), not Google-published.",
+      "$comment": "Community server (ruchernchong/mcp-server-google-analytics), not Google-published. Verified by running it directly: it requires GOOGLE_CLIENT_EMAIL, GOOGLE_PRIVATE_KEY, GA_PROPERTY_ID exactly (not the Google-standard GOOGLE_APPLICATION_CREDENTIALS/GA4_PROPERTY_ID names originally assumed here).",
       "command": "npx",
       "args": ["-y", "mcp-server-google-analytics"],
       "env": {
-        "GA4_PROPERTY_ID": "${GA4_PROPERTY_ID}",
-        "GOOGLE_APPLICATION_CREDENTIALS": "${GOOGLE_APPLICATION_CREDENTIALS}"
+        "GOOGLE_CLIENT_EMAIL": "${GOOGLE_CLIENT_EMAIL}",
+        "GOOGLE_PRIVATE_KEY": "${GOOGLE_PRIVATE_KEY}",
+        "GA_PROPERTY_ID": "${GA_PROPERTY_ID}"
       }
     },
     "google-sheets": {
-      "$comment": "Community server (freema/mcp-gsheets), not Google-published.",
+      "$comment": "Community server (freema/mcp-gsheets), not Google-published. Verified by running it directly: it wants GOOGLE_SERVICE_ACCOUNT_KEY as the raw JSON string (or GOOGLE_APPLICATION_CREDENTIALS as a file path, or GOOGLE_PRIVATE_KEY+GOOGLE_CLIENT_EMAIL) — the GOOGLE_SERVICE_ACCOUNT_JSON name originally used here isn't recognized by this package.",
       "command": "npx",
       "args": ["-y", "mcp-gsheets"],
-      "env": { "GOOGLE_SERVICE_ACCOUNT_JSON": "${GOOGLE_SERVICE_ACCOUNT_JSON}" }
+      "env": { "GOOGLE_SERVICE_ACCOUNT_KEY": "${GOOGLE_SERVICE_ACCOUNT_KEY}" }
     },
     "google-ads": {
       "$comment": "Community server, no single official option exists. Re-verify current maintainer/version before granting spend-affecting scopes.",
@@ -72,9 +73,9 @@
       "env": { "INSTANTLY_API_KEY": "${INSTANTLY_API_KEY}" }
     },
     "b2b-enrichment": {
-      "$comment": "Single-maintainer Python project (Aleksey-Panf/b2b-enrichment-mcp). Read the source before running locally.",
-      "command": "python",
-      "args": ["-m", "b2b_enrichment_mcp"],
+      "$comment": "Single-maintainer Python project (Aleksey-Panf/b2b-enrichment-mcp). Source reviewed: only calls api.apollo.io and api.hunter.io, no unexpected endpoints. Installed in its own venv at C:\\Users\\Tech\\mcp-servers\\b2b-enrichment-mcp (outside this repo). Its pyproject.toml pins 'mcp[cli]>=1.9.0' with no upper bound, which pulled in an incompatible mcp 2.0.0 by default (removed the fastmcp submodule this code needs) — the venv has 'mcp[cli]<2.0' pinned instead (installed 1.29.0). Real module path is apollo_mcp.server, not b2b_enrichment_mcp as originally assumed.",
+      "command": "C:\\Users\\Tech\\mcp-servers\\b2b-enrichment-mcp\\.venv\\Scripts\\python.exe",
+      "args": ["-m", "apollo_mcp.server"],
       "env": {
         "HUNTER_API_KEY": "${HUNTER_API_KEY}",
         "APOLLO_API_KEY": "${APOLLO_API_KEY}"

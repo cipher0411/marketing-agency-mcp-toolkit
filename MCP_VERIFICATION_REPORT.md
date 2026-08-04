@@ -32,6 +32,17 @@ Before wiring anything into `.mcp.json`, every package from the original spec wa
 | 19 | `openrouter-media` | No package under this name. Closest real analog: `@stabgan/openrouter-mcp-multimodal`, which does generate images/video/audio via OpenRouter. Verify its README against the workflow docs before using. |
 | 20 | `ad-generator-mcp` (generate_copy/render_ad/bulk_generate/upload_asset) | No package under this name or with this exact tool set. Closest real analogs: Prizmad MCP (UGC video ads), `ads-mcp` (amekala, 100+ tools across Google/Meta/LinkedIn/TikTok), `meta-ads-mcp-server`. None match the briefed tool names — pick one, read its README, and rewrite the workflow doc to match its actual tools before relying on it. |
 
+## Runtime-verified corrections (2026-08-04)
+
+Static verification (checking a package exists) turned out not to be enough — three servers had wrong env var names or wrong invocation details that only surfaced by actually running them and reading the crash output. Corrected in `.mcp.json`:
+
+- **google-analytics** (`mcp-server-google-analytics`): actually requires `GOOGLE_CLIENT_EMAIL`, `GOOGLE_PRIVATE_KEY`, `GA_PROPERTY_ID` — not the Google-standard `GOOGLE_APPLICATION_CREDENTIALS`/`GA4_PROPERTY_ID` names originally assumed.
+- **google-sheets** (`mcp-gsheets`): wants `GOOGLE_SERVICE_ACCOUNT_KEY` as the raw JSON string (or `GOOGLE_APPLICATION_CREDENTIALS` as a file path, or `GOOGLE_PRIVATE_KEY`+`GOOGLE_CLIENT_EMAIL` directly) — the `GOOGLE_SERVICE_ACCOUNT_JSON` name/format originally used wasn't recognized.
+- **b2b-enrichment-mcp**: the real module is `apollo_mcp.server`, not `b2b_enrichment_mcp`. It also needs a proper `git clone` + venv + `pip install -e .` — it's not `npx`-fetchable. Its `pyproject.toml` pins `mcp[cli]>=1.9.0` with no upper bound, which pulls in an incompatible `mcp` 2.0.0 by default (that release removed the `fastmcp` submodule this code imports) — installed with `mcp[cli]<2.0` instead. Set up in `C:\Users\Tech\mcp-servers\b2b-enrichment-mcp\.venv`, outside this repo. Source was reviewed before running: it only calls `api.apollo.io` and `api.hunter.io`.
+- **canva**: tested directly and it does work (`Local STDIO server running`, proxy established) — a "failed" status in Claude Code's `/mcp` view for this one is likely a slow-handshake timing issue, not a real problem.
+
+**Lesson:** "the package exists and is from a legitimate publisher" (static verification) and "the package works with the env vars its own docs/community listings imply" (runtime verification) are different claims. Community MCP servers in particular should be run once with `--help` or a short timeout before being trusted in a client engagement, not just read about.
+
 ## How this changes the deliverable
 
 - `.mcp.json` ships with entries **1–16 only**, every one commented with its source and an `env` block of placeholder variable names — no real keys are or should ever be committed.
