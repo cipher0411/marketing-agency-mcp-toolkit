@@ -1,0 +1,99 @@
+{
+  "$comment": "Only servers verified as real in MCP_VERIFICATION_REPORT.md are listed here. Every entry needs a real API key/token in the env var shown before it will work — none are pre-filled. Never commit real secrets into this file; use your shell environment or a .env loaded outside version control. Review each server's source/README yourself before enabling it for a client engagement.",
+  "mcpServers": {
+    "hubspot": {
+      "command": "npx",
+      "args": ["-y", "@hubspot/mcp-server"],
+      "env": { "HUBSPOT_ACCESS_TOKEN": "${HUBSPOT_ACCESS_TOKEN}" }
+    },
+    "notion": {
+      "command": "npx",
+      "args": ["-y", "@notionhq/notion-mcp-server"],
+      "env": { "NOTION_TOKEN": "${NOTION_TOKEN}" }
+    },
+    "slack": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-slack"],
+      "env": {
+        "SLACK_BOT_TOKEN": "${SLACK_BOT_TOKEN}",
+        "SLACK_TEAM_ID": "${SLACK_TEAM_ID}"
+      }
+    },
+    "ahrefs": {
+      "$comment": "Ahrefs recommends their remote MCP over this local package (see verification report). Local package requires an API v3 key, not an MCP key.",
+      "command": "npx",
+      "args": ["-y", "@ahrefs/mcp"],
+      "env": { "AHREFS_API_KEY": "${AHREFS_API_KEY}" }
+    },
+    "klaviyo": {
+      "command": "npx",
+      "args": ["-y", "klaviyo-mcp"],
+      "env": { "KLAVIYO_API_KEY": "${KLAVIYO_API_KEY}" }
+    },
+    "canva": {
+      "$comment": "Official Canva remote MCP, bridged locally via mcp-remote. Auth happens via interactive OAuth, not a static key.",
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://mcp.canva.com/mcp"]
+    },
+    "google-analytics": {
+      "$comment": "Community server (ruchernchong/mcp-server-google-analytics), not Google-published.",
+      "command": "npx",
+      "args": ["-y", "mcp-server-google-analytics"],
+      "env": {
+        "GA4_PROPERTY_ID": "${GA4_PROPERTY_ID}",
+        "GOOGLE_APPLICATION_CREDENTIALS": "${GOOGLE_APPLICATION_CREDENTIALS}"
+      }
+    },
+    "google-sheets": {
+      "$comment": "Community server (freema/mcp-gsheets), not Google-published.",
+      "command": "npx",
+      "args": ["-y", "mcp-gsheets"],
+      "env": { "GOOGLE_SERVICE_ACCOUNT_JSON": "${GOOGLE_SERVICE_ACCOUNT_JSON}" }
+    },
+    "google-ads": {
+      "$comment": "Community server, no single official option exists. Re-verify current maintainer/version before granting spend-affecting scopes.",
+      "command": "npx",
+      "args": ["-y", "@samihalawa/google-ads-mcp-server"],
+      "env": {
+        "GOOGLE_ADS_CLIENT_ID": "${GOOGLE_ADS_CLIENT_ID}",
+        "GOOGLE_ADS_CLIENT_SECRET": "${GOOGLE_ADS_CLIENT_SECRET}",
+        "GOOGLE_ADS_DEVELOPER_TOKEN": "${GOOGLE_ADS_DEVELOPER_TOKEN}",
+        "GOOGLE_ADS_REFRESH_TOKEN": "${GOOGLE_ADS_REFRESH_TOKEN}"
+      }
+    },
+    "apollo": {
+      "command": "npx",
+      "args": ["-y", "apollo-io-mcp-server"],
+      "env": { "APOLLO_API_KEY": "${APOLLO_API_KEY}" }
+    },
+    "instantly": {
+      "command": "npx",
+      "args": ["-y", "instantly-mcp"],
+      "env": { "INSTANTLY_API_KEY": "${INSTANTLY_API_KEY}" }
+    },
+    "b2b-enrichment": {
+      "$comment": "Single-maintainer Python project (Aleksey-Panf/b2b-enrichment-mcp). Read the source before running locally.",
+      "command": "python",
+      "args": ["-m", "b2b_enrichment_mcp"],
+      "env": {
+        "HUNTER_API_KEY": "${HUNTER_API_KEY}",
+        "APOLLO_API_KEY": "${APOLLO_API_KEY}"
+      }
+    },
+    "socialneuron": {
+      "$comment": "Requires a paid Social Neuron plan (Starter or above).",
+      "command": "npx",
+      "args": ["-y", "@socialneuron/mcp-server"],
+      "env": { "SOCIALNEURON_API_KEY": "${SOCIALNEURON_API_KEY}" }
+    }
+  },
+  "$notWired": {
+    "$comment": "See MCP_VERIFICATION_REPORT.md. These require an API/account with per-call billing or a remote-only setup, so they're documented in agency-assets/mcp-configurations/ instead of pre-wired here: Forage MCP (Apify pay-per-call), Hunter.io (official remote MCP, no local package), Lamina (github.com/uselamina/lamina-mcp, requires its own hosted API key).",
+    "excludedAsUnverified": [
+      "@flipfactory-it/mcp-leadgen",
+      "lead-gen-toolkit",
+      "openrouter-media",
+      "ad-generator-mcp"
+    ]
+  }
+}

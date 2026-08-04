@@ -1,0 +1,24 @@
+# Secrets — never commit real credentials
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+credentials.json
+**/secrets/**
+**/*_credentials.md
+**/*.local.json
+.mcp.local.json
+
+# Google service account files (referenced by GOOGLE_APPLICATION_CREDENTIALS / GOOGLE_SERVICE_ACCOUNT_JSON)
+*service-account*.json
+*serviceaccount*.json
+
+# OS/editor cruft
+.DS_Store
+Thumbs.db
+.vscode/settings.json
+*.swp
+
+# Dependencies (if any client workflow ever adds a package.json here)
+node_modules/
