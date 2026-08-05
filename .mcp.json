@@ -70,9 +70,9 @@
       "env": { "APOLLO_API_KEY": "${APOLLO_API_KEY}" }
     },
     "instantly": {
+      "$comment": "Verified via runtime testing: this package ignores INSTANTLY_API_KEY as an env var entirely and requires the key as a --api-key CLI argument instead.",
       "command": "npx",
-      "args": ["-y", "instantly-mcp"],
-      "env": { "INSTANTLY_API_KEY": "${INSTANTLY_API_KEY}" }
+      "args": ["-y", "instantly-mcp", "--api-key", "${INSTANTLY_API_KEY}"]
     },
     "b2b-enrichment": {
       "$comment": "Single-maintainer Python project (Aleksey-Panf/b2b-enrichment-mcp). Source reviewed: only calls api.apollo.io and api.hunter.io, no unexpected endpoints. Installed in its own venv at C:\\Users\\Tech\\mcp-servers\\b2b-enrichment-mcp (outside this repo). Its pyproject.toml pins 'mcp[cli]>=1.9.0' with no upper bound, which pulled in an incompatible mcp 2.0.0 by default (removed the fastmcp submodule this code needs) — the venv has 'mcp[cli]<2.0' pinned instead (installed 1.29.0). Real module path is apollo_mcp.server, not b2b_enrichment_mcp as originally assumed.",
@@ -84,10 +84,9 @@
       }
     },
     "socialneuron": {
-      "$comment": "Requires a paid Social Neuron plan (Starter or above).",
+      "$comment": "Requires a paid Social Neuron plan (Starter or above). Verified via runtime testing: does NOT use an env var for auth at all — a bare 'npx @socialneuron/mcp-server' also fails with 'could not determine executable to run' (no matching bin), so the package name needs an explicit -p bin flag. Auth is OS-keychain-based: run 'npx -y -p @socialneuron/mcp-server socialneuron-mcp login' ONCE, interactively, in your own terminal (it opens a real browser for authorization) before this entry will connect. SOCIALNEURON_API_KEY is not read by this tool.",
       "command": "npx",
-      "args": ["-y", "@socialneuron/mcp-server"],
-      "env": { "SOCIALNEURON_API_KEY": "${SOCIALNEURON_API_KEY}" }
+      "args": ["-y", "-p", "@socialneuron/mcp-server", "socialneuron-mcp"]
     }
   },
   "$notWired": {
