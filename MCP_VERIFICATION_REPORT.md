@@ -43,6 +43,16 @@ Static verification (checking a package exists) turned out not to be enough — 
 
 **Lesson:** "the package exists and is from a legitimate publisher" (static verification) and "the package works with the env vars its own docs/community listings imply" (runtime verification) are different claims. Community MCP servers in particular should be run once with `--help` or a short timeout before being trusted in a client engagement, not just read about.
 
+## Live-tested against real credentials (2026-08-05)
+
+All 14 wired servers were run against real, working credentials end-to-end via Claude Code's `/mcp`. Three more real bugs surfaced this way — beyond what static/`--help`-level testing could catch:
+
+- **google-ads**: `@samihalawa/google-ads-mcp-server` has a published syntax error (`server.js:915`) that crashes on load regardless of credentials — confirmed by running it directly. Replaced with `@zleventer/google-ads-mcp`, which needs `GOOGLE_ADS_CUSTOMER_ID` (required, numeric, no dashes) and optionally `GOOGLE_ADS_LOGIN_CUSTOMER_ID` (only if the target customer ID is a client account linked under a separate manager account you're authenticating as).
+- **instantly**: `instantly-mcp` silently ignores `INSTANTLY_API_KEY` as an env var — it only accepts the key via a `--api-key` CLI argument. `.mcp.json`'s `args` array now passes it that way instead of via `env`.
+- **socialneuron**: `@socialneuron/mcp-server`'s `login` subcommand is broken — it prints "waiting for authorization" but never actually opens a local listening port to receive the OAuth callback (confirmed by inspecting the process's network connections directly; zero, across two tested versions, 2.0.1 and 1.9.0). Worked around by generating an API key directly from the Social Neuron web dashboard (Developers → API Keys) instead of the CLI login flow, and setting it as `SOCIALNEURON_API_KEY` — the server does honor that env var even though it isn't documented as the primary auth path. Note: Social Neuron's dashboard states API access requires a paid plan, not just their Pro Trial — verify with a real tool call, not just a successful `/mcp` connection, if your account is still on trial.
+
+**Second lesson:** even "it starts without crashing and lists its tools" (what `/mcp` shows as "connected") is not proof a server's credentials are valid or that real tool calls will succeed — `ahrefs` and `slack` both show "connected" while still missing their real API keys, because those two packages don't validate auth until a tool is actually invoked. Treat "connected" as "the process launched," not "this works."
+
 ## How this changes the deliverable
 
 - `.mcp.json` ships with entries **1–16 only**, every one commented with its source and an `env` block of placeholder variable names — no real keys are or should ever be committed.

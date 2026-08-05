@@ -84,9 +84,10 @@
       }
     },
     "socialneuron": {
-      "$comment": "Requires a paid Social Neuron plan (Starter or above). Verified via runtime testing: does NOT use an env var for auth at all — a bare 'npx @socialneuron/mcp-server' also fails with 'could not determine executable to run' (no matching bin), so the package name needs an explicit -p bin flag. Auth is OS-keychain-based: run 'npx -y -p @socialneuron/mcp-server socialneuron-mcp login' ONCE, interactively, in your own terminal (it opens a real browser for authorization) before this entry will connect. SOCIALNEURON_API_KEY is not read by this tool.",
+      "$comment": "Requires a paid Social Neuron plan (Pro Trial is NOT sufficient per their own dashboard). Verified via runtime testing: a bare 'npx @socialneuron/mcp-server' fails with 'could not determine executable to run' (no matching bin), so the package name needs an explicit -p bin flag. The documented 'login' subcommand is broken as of v2.0.1 and v1.9.0 — it claims to wait for an OAuth callback but never opens a local listening port (confirmed via direct process/network inspection), so it can never succeed. Working alternative: generate an API key directly from the Social Neuron web dashboard (Developers -> API Keys) and set it as SOCIALNEURON_API_KEY — the server does honor that env var despite it not being the documented primary auth path.",
       "command": "npx",
-      "args": ["-y", "-p", "@socialneuron/mcp-server", "socialneuron-mcp"]
+      "args": ["-y", "-p", "@socialneuron/mcp-server", "socialneuron-mcp"],
+      "env": { "SOCIALNEURON_API_KEY": "${SOCIALNEURON_API_KEY}" }
     }
   },
   "$notWired": {
