@@ -52,14 +52,16 @@
       "env": { "GOOGLE_SERVICE_ACCOUNT_KEY": "${GOOGLE_SERVICE_ACCOUNT_KEY}" }
     },
     "google-ads": {
-      "$comment": "Community server, no single official option exists. Re-verify current maintainer/version before granting spend-affecting scopes.",
+      "$comment": "Switched from @samihalawa/google-ads-mcp-server after runtime testing found a published syntax error (server.js:915, breaks regardless of credentials). @zleventer/google-ads-mcp tested clean (no crash on startup). Requires GOOGLE_ADS_CUSTOMER_ID (target account, no dashes) and optionally GOOGLE_ADS_LOGIN_CUSTOMER_ID (manager account ID, only if the target is a linked client account under a manager). Re-verify current maintainer/version before granting spend-affecting scopes.",
       "command": "npx",
-      "args": ["-y", "@samihalawa/google-ads-mcp-server"],
+      "args": ["-y", "@zleventer/google-ads-mcp"],
       "env": {
         "GOOGLE_ADS_CLIENT_ID": "${GOOGLE_ADS_CLIENT_ID}",
         "GOOGLE_ADS_CLIENT_SECRET": "${GOOGLE_ADS_CLIENT_SECRET}",
         "GOOGLE_ADS_DEVELOPER_TOKEN": "${GOOGLE_ADS_DEVELOPER_TOKEN}",
-        "GOOGLE_ADS_REFRESH_TOKEN": "${GOOGLE_ADS_REFRESH_TOKEN}"
+        "GOOGLE_ADS_REFRESH_TOKEN": "${GOOGLE_ADS_REFRESH_TOKEN}",
+        "GOOGLE_ADS_CUSTOMER_ID": "${GOOGLE_ADS_CUSTOMER_ID}",
+        "GOOGLE_ADS_LOGIN_CUSTOMER_ID": "${GOOGLE_ADS_LOGIN_CUSTOMER_ID}"
       }
     },
     "apollo": {
