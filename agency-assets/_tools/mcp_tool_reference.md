@@ -9,7 +9,7 @@ Full status table — the canonical list is `MCP_VERIFICATION_REPORT.md` at the 
 | Analytics/SEO | Google Analytics, Ahrefs, Google Sheets, HubSpot | `mcp-configurations/analytics-mcp-setup.md` |
 | Advertising | Google Ads (community) | `mcp-configurations/advertising-mcp-setup.md` |
 | Social | Social Neuron, Slack | `mcp-configurations/social-mcp-setup.md` |
-| CRM/automation | HubSpot, Klaviyo | `mcp-configurations/analytics-mcp-setup.md`, `content-mcp-setup.md` |
+| CRM/automation | HubSpot, Klaviyo, Brevo (free-tier alternative) | `mcp-configurations/analytics-mcp-setup.md`, `content-mcp-setup.md` |
 | Collaboration | Notion, Slack | n/a — standard official servers |
 
 ## Excluded (not real / unverified as originally specified)

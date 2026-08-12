@@ -3,7 +3,7 @@
 **Subject line (A/B if testing):**
 **Preview text:**
 **Send date/time:**
-**Segment:** (from Klaviyo/HubSpot audience)
+**Segment:** (from Klaviyo/Brevo/HubSpot audience)
 
 ## Structure
 1. Hook/opening line

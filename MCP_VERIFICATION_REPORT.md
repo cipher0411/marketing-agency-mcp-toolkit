@@ -22,6 +22,8 @@ Before wiring anything into `.mcp.json`, every package from the original spec wa
 | 14 | Forage MCP | apify.com/ernesta_labs/forage | ErnestaLabs (Apify-hosted) | Pay-per-call, $5 free credit, no subscription |
 | 15 | Social Neuron | `@socialneuron/mcp-server` | Social Neuron (official) | Requires a paid Social Neuron plan (Starter+) |
 | 16 | Lamina | github.com/uselamina/lamina-mcp | Lamina (official) | Tools are `create`, `track`, `evaluate`, `distribute`, `brand_lookup` — not `lamina_create`/`lamina_brand`/`lamina_batch` as originally briefed; naming corrected in the workflow docs |
+| 17 | Brevo | Remote MCP at `mcp.brevo.com/v1/brevo/mcp`, bridged via `mcp-remote` with a Bearer token header | Brevo (official, developers.brevo.com/docs/mcp-protocol) | Free-tier alternative to Klaviyo — historically ~300 emails/day free, unlimited contacts (verify current limits). Config format confirmed against Brevo's own docs and partially runtime-tested (transport negotiation succeeds; full auth needs a real `BREVO_MCP_TOKEN`) |
+| 18 | Buffer | Official Buffer MCP, connects via Claude Connectors | Buffer (official, buffer.com/mcp) | Free-tier alternative to Social Neuron's scheduling/distribution piece — not yet wired into `.mcp.json`, connects differently (Claude Connectors flow, not an npx package) |
 
 ## Not verified — excluded from `.mcp.json`, do not install as named
 

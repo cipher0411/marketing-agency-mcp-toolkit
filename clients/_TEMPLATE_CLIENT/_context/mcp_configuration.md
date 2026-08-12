@@ -18,6 +18,7 @@
 | Google Sheets | | | | |
 | Ahrefs | | | | Agency subscription — confirm client's retainer covers it |
 | Klaviyo | | | | |
+| Brevo | | | | Free-tier alternative to Klaviyo — ~300 emails/day, unlimited contacts on the free plan (verify current limits) |
 | Notion | | | | |
 | Slack | | | | Which channel(s) |
 

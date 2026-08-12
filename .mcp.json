@@ -30,6 +30,15 @@
       "args": ["-y", "klaviyo-mcp"],
       "env": { "KLAVIYO_API_KEY": "${KLAVIYO_API_KEY}" }
     },
+    "brevo": {
+      "$comment": "Free-tier alternative to Klaviyo for clients who can't cover a paid subscription. Official Brevo-published remote MCP (developers.brevo.com/docs/mcp-protocol) -- config matches their documented format exactly, confirmed reachable via direct runtime test (transport negotiation succeeds; full auth only verifiable with a real token). Free plan has historically included ~300 emails/day, unlimited contacts -- verify current limits on Brevo's pricing page. Generate the token at Brevo -> Account -> SMTP & API -> API Keys -> create a key with the 'MCP option' enabled.",
+      "command": "npx",
+      "args": [
+        "-y", "mcp-remote",
+        "https://mcp.brevo.com/v1/brevo/mcp",
+        "--header", "Authorization: Bearer ${BREVO_MCP_TOKEN}"
+      ]
+    },
     "canva": {
       "$comment": "Official Canva remote MCP, bridged locally via mcp-remote. Auth happens via interactive OAuth, not a static key.",
       "command": "npx",

@@ -14,16 +14,17 @@
 | `HUNTER_API_KEY` | Hunter.io | Free: 50 req/mo |
 | `APOLLO_API_KEY` | Apollo.io | Free tier available |
 | `APIFY_API_TOKEN` | Apify (Forage, Lead Gen MCP) | Pay-as-you-go |
-| `INSTANTLY_API_KEY` | Instantly.ai | Subscription |
-| `SOCIALNEURON_API_KEY` | Social Neuron | Subscription (Starter+) |
-| `GOOGLE_ADS_CLIENT_ID` / `_SECRET` / `_DEVELOPER_TOKEN` / `_REFRESH_TOKEN` | Google Ads API | Free API, ad spend separate |
+| `INSTANTLY_API_KEY` | Instantly.ai — passed as a `--api-key` CLI arg in `.mcp.json`, NOT read as an env var by the package itself; still set the env var so the arg substitution has a value | Subscription |
+| `SOCIALNEURON_API_KEY` | Social Neuron — generate from the web dashboard (Developers → API Keys), not via the CLI's `login` command (broken as of v2.0.1/1.9.0) | Subscription (Starter+), Pro Trial does NOT include API access |
+| `GOOGLE_ADS_CLIENT_ID` / `_SECRET` / `_DEVELOPER_TOKEN` / `_REFRESH_TOKEN` / `_CUSTOMER_ID` / `_LOGIN_CUSTOMER_ID` (optional) | Google Ads API | Free API, ad spend separate. Developer token requires a Manager (MCC) account, not a standard Ads account |
 | `HUBSPOT_ACCESS_TOKEN` | HubSpot | Free tier available |
-| `GA4_PROPERTY_ID` / `GOOGLE_APPLICATION_CREDENTIALS` | Google Analytics | Free |
+| `GOOGLE_CLIENT_EMAIL` / `GOOGLE_PRIVATE_KEY` / `GA_PROPERTY_ID` | Google Analytics — exact names required by `mcp-server-google-analytics`, not the Google-standard `GOOGLE_APPLICATION_CREDENTIALS`/`GA4_PROPERTY_ID` | Free |
 | `AHREFS_API_KEY` | Ahrefs | Paid subscription only |
 | `KLAVIYO_API_KEY` | Klaviyo | Subscription |
+| `BREVO_MCP_TOKEN` | Brevo — free-tier alternative to Klaviyo. Generate at Account → SMTP & API → API Keys → enable "MCP option" | Free: ~300 emails/day, unlimited contacts (verify current limits) |
 | `NOTION_TOKEN` | Notion | Free tier available |
 | `SLACK_BOT_TOKEN` / `SLACK_TEAM_ID` | Slack | Free tier available |
-| `GOOGLE_SERVICE_ACCOUNT_JSON` | Google Sheets | Free |
+| `GOOGLE_SERVICE_ACCOUNT_KEY` | Google Sheets — raw JSON string required by `mcp-gsheets`, not a file path | Free |
 
 ## Cost tracking (per-call and subscription tools)
 
@@ -32,6 +33,7 @@
 | Forage MCP | ~$0.03–$3.50 per op/skill | Log every call's cost against the client in `reports/mcp_analytics_workflows.md`; flag if a client's monthly Forage spend exceeds their retainer allowance |
 | Apify actors (Lead Gen MCP, etc.) | ~$0.01–$0.05/lead or per call | Same as above |
 | Ahrefs / Social Neuron / Klaviyo | Flat subscription | Confirm which clients' retainers actually include these before enabling — don't assume Agency-tier access applies to every account |
+| Brevo | Free tier (~300 emails/day) | Free-tier alternative to Klaviyo for clients whose retainer doesn't cover a paid ESP — track if/when they outgrow the free sending limit |
 
 ## Onboarding a new client's credentials
 1. Copy `_TEMPLATE_CLIENT/_context/mcp_configuration.md`.

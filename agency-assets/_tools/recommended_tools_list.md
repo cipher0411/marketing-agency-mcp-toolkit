@@ -3,7 +3,7 @@
 ## MCP-integrated (see `mcp-configurations/` for setup)
 - Lead gen/enrichment: Apollo.io, Hunter.io, b2b-enrichment-mcp, Forage MCP
 - Content/creative: Social Neuron, Lamina, Canva
-- CRM/automation: HubSpot, Klaviyo
+- CRM/automation: HubSpot, Klaviyo (or Brevo — free tier, ~300 emails/day, for clients who can't cover a paid ESP)
 - Analytics/SEO: Google Analytics, Ahrefs, Google Sheets
 - Advertising: Google Ads (community MCP — see caveats in `mcp-configurations/advertising-mcp-setup.md`)
 - Collaboration: Notion, Slack
