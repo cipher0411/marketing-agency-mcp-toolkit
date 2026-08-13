@@ -1,10 +1,17 @@
 # Social Media MCP Setup
 
-Covers: Social Neuron (primary), Slack (internal coordination), Canva (asset creation).
+Covers: Social Neuron (primary, paid), Buffer (free-tier scheduling alternative), Slack (internal coordination), Canva (asset creation).
 
 ## Social Neuron
 - See `content-mcp-setup.md` for the full tool list. For social specifically: `schedule_post`, `schedule_content_plan`, `fetch_analytics`, `get_performance_insights`.
 - Platforms supported: YouTube, Instagram, TikTok per the official repo — confirm current platform coverage before promising a client a channel it may not support yet (e.g. LinkedIn, X).
+
+## Buffer (free-tier alternative to Social Neuron's scheduling/distribution piece)
+- **Not wired into `.mcp.json`** — unlike every other server in this system, Buffer's official MCP only connects via Claude.ai's own **Settings → Connectors** UI, not a project-scoped remote MCP URL. Confirmed against both buffer.com/mcp and developers.buffer.com — neither publishes a standalone MCP endpoint for `.mcp.json`.
+- Free on every Buffer plan, officially launched by Buffer (not community).
+- Connect once per Claude.ai account (not per-project) at Settings → Connectors → Buffer → Connect.
+- Once connected it shows up in `/mcp` under the `claude.ai` section, same place as any other account-level Connector (distinct from "Project MCPs").
+- Covers scheduling/posting; does not cover Social Neuron's AI content generation, trend-fetching, or brand-profile features — pair with Canva for asset creation and manual drafting against `_context/client_brand_voice_guide.md`.
 
 ## Slack (`@modelcontextprotocol/server-slack`)
 - Official MCP reference server, MIT licensed.
