@@ -36,9 +36,9 @@ Both verified working end-to-end and wired into `.mcp.json`.
 
 ### Saleshandy
 - ~$25/mo (Outreach Starter: 2,000 active prospects, 6,000 emails/mo), 7-day free trial (100 emails, no card required). Notably offers **unlimited clients on one plan** — relevant if you're running this for multiple client accounts, not just your own.
-- **Setup is not plug-and-play.** The published repo (`ftaxats/SHMCP`) is packaged for Smithery's cloud hosting, not runnable as a local stdio server out of the box, and its compiled output also had a real bug (missing `.js` extensions on ESM imports). Both were fixed and a working wrapper is already in place at `C:\Users\Tech\mcp-servers\SHMCP\stdio-entry.mjs` — you shouldn't need to touch this again, just set the API key.
-- Env: `SALESHANDY_API_KEY`, from Saleshandy → account settings.
-- Only 9 tools: user profile, campaigns (list/create/update status), templates (list/create), contacts (list/create/update). No lead sourcing — pair with Apollo/Hunter/Forage for that.
+- **Preferred path: Saleshandy's own official Claude Connector.** Connect via claude.ai → Settings → Connectors (same mechanism as Buffer) rather than the local `.mcp.json` wrapper below. Verified live: 60+ tools covering sequences, email accounts (with health scores), enrichment, DNC lists, task management, even domain purchasing for cold-email infrastructure — far more complete than the community GitHub repo. This wasn't found during initial research because Connectors aren't indexed by npm/GitHub search the way community MCP servers are.
+- **Fallback (if Connector access isn't available):** `.mcp.json`'s `saleshandy` entry runs a locally-patched version of the published repo (`ftaxats/SHMCP`), which is NOT runnable as-is — it's packaged for Smithery's cloud hosting, and its compiled output had a real bug (missing `.js` extensions on ESM imports). Both fixed; wrapper lives at `C:\Users\Tech\mcp-servers\SHMCP\stdio-entry.mjs`. Only 9 tools this way (profile, campaigns, templates, contacts) — no sequences, no lead sourcing.
+- Env (fallback path only): `SALESHANDY_API_KEY`, from Saleshandy → account settings.
 
 ### Smartlead
 - $39/mo (Base: 2,000 active leads, 6,000 emails/mo, unlimited mailboxes+warmup), 14-day free trial with 2,500 email credits.
