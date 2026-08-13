@@ -73,6 +73,18 @@
         "GOOGLE_ADS_LOGIN_CUSTOMER_ID": "${GOOGLE_ADS_LOGIN_CUSTOMER_ID}"
       }
     },
+    "saleshandy": {
+      "$comment": "Cheaper alternative to Instantly (~$25/mo, 7-day free trial). The published repo (ftaxats/SHMCP) is NOT a runnable stdio server as-is -- it's packaged for Smithery's cloud hosting (config injected via their runtime, no env-var entry point) and its compiled dist/ output was also missing required .js extensions on relative ESM imports, causing ERR_MODULE_NOT_FOUND on Node. Both issues were fixed locally: cloned to C:\\Users\\Tech\\mcp-servers\\SHMCP, patched the compiled import paths, and added a custom stdio-entry.mjs that calls the exported createServer() directly with env-var config and connects it to a real StdioServerTransport. Verified working end-to-end (all 9 tools registered) with a placeholder key. Source reviewed: base URL defaults to the real api.saleshandy.com, no unexpected endpoints. Only 9 tools (campaigns/templates/contacts), no lead-search -- pair with Apollo/Hunter for sourcing.",
+      "command": "node",
+      "args": ["C:\\Users\\Tech\\mcp-servers\\SHMCP\\stdio-entry.mjs"],
+      "env": { "SALESHANDY_API_KEY": "${SALESHANDY_API_KEY}" }
+    },
+    "smartlead": {
+      "$comment": "Cheaper alternative to Instantly ($39/mo, 14-day free trial with 2,500 email credits). Built by LeadMagic, an official SmartLead partner -- verified working directly via npx with no fixes needed: 49/113+ tools load by default, and it correctly rejected a placeholder key with a real 401 rather than silently accepting bad input. Set SMARTLEAD_ADVANCED_TOOLS=true and/or SMARTLEAD_ADMIN_TOOLS=true (as additional env vars) to unlock more of the 113+ tool set if needed.",
+      "command": "npx",
+      "args": ["-y", "smartlead-mcp-by-leadmagic"],
+      "env": { "SMARTLEAD_API_KEY": "${SMARTLEAD_API_KEY}" }
+    },
     "apollo": {
       "command": "npx",
       "args": ["-y", "apollo-io-mcp-server"],

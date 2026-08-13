@@ -14,7 +14,9 @@
 | `HUNTER_API_KEY` | Hunter.io | Free: 50 req/mo |
 | `APOLLO_API_KEY` | Apollo.io | Free tier available |
 | `APIFY_API_TOKEN` | Apify (Forage, Lead Gen MCP) | Pay-as-you-go |
-| `INSTANTLY_API_KEY` | Instantly.ai — passed as a `--api-key` CLI arg in `.mcp.json`, NOT read as an env var by the package itself; still set the env var so the arg substitution has a value | Subscription |
+| `INSTANTLY_API_KEY` | Instantly.ai — passed as a `--api-key` CLI arg in `.mcp.json`, NOT read as an env var by the package itself; still set the env var so the arg substitution has a value | Subscription (~$47+/mo) |
+| `SALESHANDY_API_KEY` | Saleshandy — cheaper Instantly alternative, unlimited-client agency pricing. Runs via a custom local wrapper (`C:\Users\Tech\mcp-servers\SHMCP\stdio-entry.mjs`) since the published repo isn't runnable as-is | ~$25/mo, 7-day trial |
+| `SMARTLEAD_API_KEY` | Smartlead — cheaper Instantly alternative, official LeadMagic-built MCP, worked cleanly with no fixes needed | $39/mo, 14-day trial (2,500 email credits) |
 | `SOCIALNEURON_API_KEY` | Social Neuron — generate from the web dashboard (Developers → API Keys), not via the CLI's `login` command (broken as of v2.0.1/1.9.0) | Subscription (Starter+), Pro Trial does NOT include API access |
 | `GOOGLE_ADS_CLIENT_ID` / `_SECRET` / `_DEVELOPER_TOKEN` / `_REFRESH_TOKEN` / `_CUSTOMER_ID` / `_LOGIN_CUSTOMER_ID` (optional) | Google Ads API | Free API, ad spend separate. Developer token requires a Manager (MCC) account, not a standard Ads account |
 | `HUBSPOT_ACCESS_TOKEN` | HubSpot | Free tier available |
